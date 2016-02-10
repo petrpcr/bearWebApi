@@ -1,14 +1,15 @@
-/// <reference path="../../typings/node/node.d.ts" />
-
 /*
  Library bear
  Petr Pokorny
 */
-namespace bear.Http{
-// Třída server
-class Server {
-    constructor(private _port:number = 80){
-    
+
+/// <reference path="../../typings/node/node.d.ts" />
+
+namespace bear.Http {
+    // Třída server
+    export class Server {
+        constructor(private _port: number = 80) {
+
+        }
     }
-}
 }

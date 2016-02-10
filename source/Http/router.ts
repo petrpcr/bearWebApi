@@ -5,7 +5,7 @@
 namespace bear.Http{
     
     // Třída Route
-    class Route {
+    export class Route {
         constructor() {
 
         }

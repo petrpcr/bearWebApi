@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "sourceMap": false,
+        "removeComments": true,
+        "declaration":true,
+        "noResolve": true,
+        "module": "commonjs"
+    }
+    
+}

@@ -1,25 +1,28 @@
-/// <reference path="../../typings/node/node.d.ts" />
 /*
- Library bear
+ Library bearWebApi - ApiController
  Petr Pokorny
- 
- 
- http://www.restapittuorial.com/lessons/httpmethods.html
 */
 
+
+/// <reference path="./typings/node/node.d.ts" />
+
+//import * as http from "http";
+import http = require("http");
+
 namespace bear.Http{
+    
   // Třída ApiController
-  class ApiController<T,ID> {
-      constructor(private _request:IncomingMessage, private _response:any){
-      
+  export class ApiController<T,TID> {
+      constructor(private _request: http.IncomingMessage, private _response:http.ServerResponse){
       }
+      
      // Create
      public Post(){
          
      }
      
      // Read
-     public Get(id:ID){
+     public Get(id:TID){
          
      }
      
@@ -34,7 +37,7 @@ namespace bear.Http{
      }
      
      // Delete
-     public Delete(id:ID){
+     public Delete(id:TID){
          
      }
   }  
