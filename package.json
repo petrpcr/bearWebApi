@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://harpagon.visualstudio.com/DefaultCollection/_git/bearWebApi"
+    "url": "https://github.com/petrpcr/bearWebApi.git"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

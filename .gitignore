@@ -5,5 +5,4 @@ dist
 .sass-cache
 .tscache
 bower_components
-typings
 
