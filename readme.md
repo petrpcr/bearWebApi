@@ -1,6 +1,9 @@
 bearWebApi typesript library for nodejs !
 ====================
 
+UNDER CONSTRUCTED!!! NOT FOR JUST USE !!
+------------------------------------------------
+
 This is a simple library be inspired .NET WebApi.
 
 Inspired point:
@@ -8,4 +11,3 @@ Inspired point:
 
 You need:
 * [node](https://nodejs.org) 
-* [tasks.json](/docs/editor/tasks)
