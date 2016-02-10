@@ -1,7 +1,7 @@
 bearWebApi typesript library for nodejs !
 ====================
 
-UNDER CONSTRUCTED!!! NOT FOR JUST USE !!
+UNDER CONSTRUCTED!!! DON'T JUST USE !!
 ------------------------------------------------
 
 This is a simple library be inspired .NET WebApi.
