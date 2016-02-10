@@ -3,7 +3,7 @@
         "target": "es5",
         "sourceMap": false,
         "removeComments": true,
-        "declaration":true,
+        "declaration":false,
         "noResolve": true,
         "module": "commonjs"
     }

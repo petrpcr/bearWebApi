@@ -6,8 +6,8 @@
 
 /// <reference path="./typings/node/node.d.ts" />
 
-//import * as http from "http";
-import http = require("http");
+import * as http from "http";
+
 
 namespace bear.Http{
     
