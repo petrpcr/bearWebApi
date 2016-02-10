@@ -1,13 +1,16 @@
+/// <reference path="../../typings/node/node.d.ts" />
 /*
  Library bear
  Petr Pokorny
+ 
+ 
+ http://www.restapittuorial.com/lessons/httpmethods.html
 */
 
-//http://www.restapitutorial.com/lessons/httpmethods.html
 namespace bear.Http{
   // Třída ApiController
   class ApiController<T,ID> {
-      constructor(private _request:any, private _response:any){
+      constructor(private _request:IncomingMessage, private _response:any){
       
       }
      // Create

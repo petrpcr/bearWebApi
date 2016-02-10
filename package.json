@@ -1,12 +1,9 @@
 {
-  "name": "HPGDotaznik",
+  "name": "bearWebAPI",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://harpagon.visualstudio.com/DefaultCollection/_git/HPGDotaznik"
-  },
-  "dependencies": {
-    "grunt": "~0.4.5"
+    "url": "https://harpagon.visualstudio.com/DefaultCollection/_git/bearWebApi"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
