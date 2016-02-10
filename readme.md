@@ -1,12 +1,14 @@
 bearWebApi typesript library for nodejs !
 ====================
 
-UNDER CONSTRUCTED!!! DON'T JUST USE !!
+UNDER CONSTRUCTION!!! NOT READY FOR USING !!
 ------------------------------------------------
+It should be ready in two months (March 2016).  
+This is a simple library inspired  by .NET WebApi.
 
-This is a simple library be inspired .NET WebApi.
+I created this library because the ones like Express, Koa, Moi are complicated and don't support OOP philosophy.
 
-Inspired point:
+Inspired by:
 * [Rest API](http://www.restapittuorial.com)
 
 You need:
