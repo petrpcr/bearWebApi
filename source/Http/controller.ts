@@ -8,7 +8,6 @@
 
 import * as http from "http";
 
-
 namespace bear.Http{
     
   // Třída ApiController
