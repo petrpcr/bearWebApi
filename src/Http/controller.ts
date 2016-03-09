@@ -2,9 +2,6 @@
 
 import * as http from "http";
    
-  export class Controllers{
-      static items:Array<ApiController<any,any>>
-  } 
   
   // Třída ApiController
   export class ApiController<T,TID> {
@@ -17,6 +14,7 @@ import * as http from "http";
      InitRequest(pReq:http.IncomingMessage,pRes:http.ServerResponse){
          this._request = pReq;
          this._response = pRes;
+         this._response.setHeader("Content-Type","text/json");
      }
      // Create
      public Post(){
@@ -43,3 +41,5 @@ import * as http from "http";
          
      }
   }  
+  
+ 
