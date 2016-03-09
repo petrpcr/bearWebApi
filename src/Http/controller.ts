@@ -8,13 +8,16 @@ import * as http from "http";
   
   // Třída ApiController
   export class ApiController<T,TID> {
-      private _request: http.ServerRequest;
+      private _request: http.IncomingMessage;
       private _response:http.ServerResponse;
       
       constructor(){
       }
       
-      
+     InitRequest(pReq:http.IncomingMessage,pRes:http.ServerResponse){
+         this._request = pReq;
+         this._response = pRes;
+     }
      // Create
      public Post(){
          
