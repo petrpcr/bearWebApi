@@ -1,40 +1,42 @@
+/// <reference path='../../typings/main.d.ts' />
 
-
-'use strict';
-
-/// <reference path='../declarations/node.d.ts' />
-/// <reference path='../declarations/ws.d.ts' />
-
-//import * as http from "http";
-import http = require("http");
+import * as http from "http";
    
+  export class Controllers{
+      static items:Array<ApiController<any,any>>
+  } 
+  
   // Třída ApiController
-//   export class ApiController<T,TID> {
-//       constructor(private _request: http.IncomingMessage, private _response:http.ServerResponse){
-//       }
+  export class ApiController<T,TID> {
+      private _request: http.ServerRequest;
+      private _response:http.ServerResponse;
       
-//      // Create
-//      public Post(){
+      constructor(){
+      }
+      
+      
+     // Create
+     public Post(){
          
-//      }
+     }
      
-//      // Read
-//      public Get(id:TID){
+     // Read
+     public Get(id:TID){
          
-//      }
+     }
      
-//      // Read ALL
-//      public GetALL(){
+     // Read ALL
+     public GetALL(){
          
-//      } 
+     } 
      
-//      // Update
-//      public Put(){
+     // Update
+     public Put(){
          
-//      }
+     }
      
-//      // Delete
-//      public Delete(id:TID){
+     // Delete
+     public Delete(id:TID){
          
-//      }
-//   }  
+     }
+  }  
