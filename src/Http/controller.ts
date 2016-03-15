@@ -11,7 +11,7 @@ export class ApiController<T, TID> {
 
 
     constructor(private _request: http.IncomingMessage, private _response: http.ServerResponse) {
-        this._response.setHeader("content-Type", "text/json");
+        this._response.setHeader("content-Type", "application/json");
         this._url = url.parse(this._request.url, true, true);
         this.Resolve()
     }

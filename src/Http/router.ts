@@ -14,7 +14,7 @@ import * as ctrl from "./controller";
 export class Route {
     private _url: url.Url;
 
-    constructor(private _Path: string, private _GetController:(Request: http.IncomingMessage, Response: http.ServerResponse)=> ctrl.ApiController<any, any>) {
+    constructor(private _Path: string, private _GetController:{new(req:http.IncomingMessage,res:http.ServerResponse): ctrl.ApiController<any, any>}) {
         this._url = url.parse(_Path, true, true);
     }
 
@@ -22,7 +22,7 @@ export class Route {
         return this._url;
     }
 
-    get GetController(): (Request: http.IncomingMessage, Response: http.ServerResponse) => ctrl.ApiController<any, any> {
+    get GetController(): {new(req:http.IncomingMessage,res:http.ServerResponse): ctrl.ApiController<any, any>} {
         return this._GetController;
     }
 
@@ -46,7 +46,8 @@ export class Routes {
                     return _url.pathname == itemRoute.URL.pathname
             })
             if (Controllers.length >= 1){
-                var Controller = Controllers[0].GetController(Request,Response);
+                var Controller = new Controllers[0].GetController(Request,Response);
+                
                 return true;
             }
             else
