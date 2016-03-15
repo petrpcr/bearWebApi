@@ -40,6 +40,7 @@ export class Routes {
     }
     
     Resolve(Request: http.IncomingMessage, Response: http.ServerResponse): boolean {
+        
             var Controllers = this._Items.filter((itemRoute: Route) => {
                     var _url: url.Url = url.parse(Request.url);
                     return _url.pathname == itemRoute.URL.pathname
