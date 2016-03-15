@@ -16,7 +16,7 @@ export class Server {
         private _router:route.Routes,
         private _port: number = 80
         ) {
-            
-      this._httpServer = http.createServer((reg,res)=> this._router.Resolve(reg,res))      
+
+      this._httpServer = http.createServer((reg,res)=> this._router.Resolve(reg,res)).listen(this._port)      
     }
 }

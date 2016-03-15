@@ -14,7 +14,7 @@ import * as ctrl from "./controller";
 export class Route {
     private _url: url.Url;
 
-    constructor(private _Path: string, private _Controller: ctrl.ApiController<any, any> = null) {
+    constructor(private _Path: string, private _GetController:(Request: http.IncomingMessage, Response: http.ServerResponse)=> ctrl.ApiController<any, any>) {
         this._url = url.parse(_Path, true, true);
     }
 
@@ -22,8 +22,8 @@ export class Route {
         return this._url;
     }
 
-    get Controller(): ctrl.ApiController<any, any> {
-        return this._Controller;
+    get GetController(): (Request: http.IncomingMessage, Response: http.ServerResponse) => ctrl.ApiController<any, any> {
+        return this._GetController;
     }
 
 }
@@ -34,38 +34,22 @@ export class Routes {
     constructor() {
         this._Items = new Array<Route>();
     }
-
-    Resolve(Request: http.IncomingMessage, Response: http.ServerResponse): boolean {
-        this._Items.forEach((itemRoute: Route) => {
-            var _url: url.Url = url.parse(Request.url, true, true);
-            if (_url.pathname == itemRoute.URL.pathname) {
-
-                if (Request.method == "PUT" || Request.method == "POST") {
-                    // čtení body
-                    var body = "";
-                    Request.on("data", (tmpData) => body += tmpData).on("end", () => {
-                        itemRoute.Controller.InitRequest(Request, Response)
-                        if (Request.method == "PUT")
-                            itemRoute.Controller.Put();
-                        else
-                            itemRoute.Controller.Post();
-                    }
-                    )
-
-                }
-                else {
-                    itemRoute.Controller.InitRequest(Request, Response);
-                    if (Request.method == "GET")
-                        itemRoute.Controller.Get();
-                    else
-                        itemRoute.Controller.Delete(_url.query.id)
-                }
-
-
-            }
-
-        })
-        return null;
+    
+    Add(pRoute:Route){
+      this._Items.push(pRoute);    
     }
+    
+    Resolve(Request: http.IncomingMessage, Response: http.ServerResponse): boolean {
+            var Controllers = this._Items.filter((itemRoute: Route) => {
+                    var _url: url.Url = url.parse(Request.url);
+                    return _url.pathname == itemRoute.URL.pathname
+            })
+            if (Controllers.length >= 1){
+                var Controller = Controllers[0].GetController(Request,Response);
+                return true;
+            }
+            else
+            return false;
+             
 }
 
