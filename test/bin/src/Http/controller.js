@@ -23,8 +23,9 @@ var ApiController = (function () {
     ApiController.prototype.CallMethod = function (pName) {
         if (pName === void 0) { pName = this._request.method; }
         pName = this.FindMethod(pName);
-        if (pName)
+        if (pName) {
             this[pName]();
+        }
         else {
             this.Response.writeHead(404);
         }
@@ -35,7 +36,7 @@ var ApiController = (function () {
                 return method;
             }
         }
-        return null;
+        return "";
     };
     Object.defineProperty(ApiController.prototype, "Response", {
         get: function () {

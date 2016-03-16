@@ -37,8 +37,11 @@ export class ApiController<T, TID> {
     public CallMethod(pName:string = this._request.method){
        // pName = pName.replace(/^a-z/,(str:string)=> str.toLowerCase())
        pName = this.FindMethod(pName);
-       if (pName)
-        this[pName]();
+       if (pName){
+           
+        (<any>this)[pName]();
+        
+       }
         else
         {
            this.Response.writeHead(404); 
@@ -47,11 +50,11 @@ export class ApiController<T, TID> {
     
     public FindMethod(pName:string):string{
       for (var method in this){
-          if (typeof this[method] === "function" && method.toUpperCase() == pName.toUpperCase()){
+          if (typeof (<any>this)[method] === "function" && method.toUpperCase() == pName.toUpperCase()){
               return method;
           }
       }  
-      return null;
+      return "";
     }
     
     public get Response(): http.ServerResponse {
@@ -62,24 +65,6 @@ export class ApiController<T, TID> {
         this.Response.writeHead(404);
         this.Response.end("Not implemented : " + pInfo);
     }
-    // // Create
-    // public Post() {
-    //     this.NotImplemented("Post");
-    // }
-
-    // // Read
-    // public Get(id: TID = null) {
-    //     this.NotImplemented("Get");
-    // }
-
-    // // Update
-    // public Put() {
-    //     this.NotImplemented("Put");
-    // }
-
-    // // Delete
-    // public Delete(id: TID) {
-    //     this.NotImplemented("Delete");
-    // }
+   
 }
 
