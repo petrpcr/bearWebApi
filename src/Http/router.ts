@@ -1,8 +1,3 @@
-/*
- Library bear
- Petr Pokorny
-*/
-
 /// <reference path="controller.ts" />
 /// <reference path="../../typings/main.d.ts" />
 
@@ -14,7 +9,7 @@ import * as ctrl from "./controller";
 export class Route {
     private _url: url.Url;
 
-    constructor(private _Path: string, private _GetController:{new(req:http.IncomingMessage,res:http.ServerResponse): ctrl.ApiController<any, any>}) {
+    constructor(private _Path: string, private _GetController: { new (req: http.IncomingMessage, res: http.ServerResponse): ctrl.ApiController<any, any> }) {
         this._url = url.parse(_Path, true, true);
     }
 
@@ -22,7 +17,7 @@ export class Route {
         return this._url;
     }
 
-    get GetController(): {new(req:http.IncomingMessage,res:http.ServerResponse): ctrl.ApiController<any, any>} {
+    get GetController(): { new (req: http.IncomingMessage, res: http.ServerResponse): ctrl.ApiController<any, any> } {
         return this._GetController;
     }
 
@@ -34,24 +29,27 @@ export class Routes {
     constructor() {
         this._Items = new Array<Route>();
     }
-    
-    Add(pRoute:Route){
-      this._Items.push(pRoute);    
+
+    Add(pRoute: Route) {
+        this._Items.push(pRoute);
     }
-    
+
     Resolve(Request: http.IncomingMessage, Response: http.ServerResponse): boolean {
-        
-            var Controllers = this._Items.filter((itemRoute: Route) => {
-                    var _url: url.Url = url.parse(Request.url);
-                    return _url.pathname == itemRoute.URL.pathname
-            })
-            if (Controllers.length >= 1){
-                var Controller = new Controllers[0].GetController(Request,Response);
-                
-                return true;
-            }
-            else
+
+        var Controllers = this._Items.filter((itemRoute: Route) => {
+            var _url: url.Url = url.parse(Request.url);
+            return _url.pathname == itemRoute.URL.pathname
+        })
+        if (Controllers.length >= 1) {
+            var Controller = new Controllers[0].GetController(Request, Response);
+
+            return true;
+        }
+        else {
             return false;
-             
+        }
+
+
+    }
 }
 

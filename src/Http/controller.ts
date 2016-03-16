@@ -19,29 +19,41 @@ export class ApiController<T, TID> {
     public Resolve(): void {
         if (this._request.method == "PUT" || this._request.method == "POST") {
             // čtení body
-            var body = [];
-            this._request.on("data", (tmpData) => body.push(tmpData)).on("end", () => {
+            var body = new Array<any>();
+            this._request.on("data", (tmpData:any) => body.push(tmpData)).on("end", () => {
                 this._bodyRequest = Buffer.concat(body).toString();
 
-                if (this._request.method == "PUT")
-                    this.Put();
-                else
-                    this.Post();
+                this.CallMethod();
             }
             )
 
         }
         else {
-
-            if (this._request.method == "GET")
-                this.Get();
-            else {
-                this.Delete(this._url.query.id)
-            }
+            this.CallMethod()
 
         }
     }
-
+    
+    public CallMethod(pName:string = this._request.method){
+       // pName = pName.replace(/^a-z/,(str:string)=> str.toLowerCase())
+       pName = this.FindMethod(pName);
+       if (pName)
+        this[pName]();
+        else
+        {
+           this.Response.writeHead(404); 
+        }
+    }
+    
+    public FindMethod(pName:string):string{
+      for (var method in this){
+          if (typeof this[method] === "function" && method.toUpperCase() == pName.toUpperCase()){
+              return method;
+          }
+      }  
+      return null;
+    }
+    
     public get Response(): http.ServerResponse {
         return this._response;
     }
@@ -50,24 +62,24 @@ export class ApiController<T, TID> {
         this.Response.writeHead(404);
         this.Response.end("Not implemented : " + pInfo);
     }
-    // Create
-    public Post() {
-        this.NotImplemented("Post");
-    }
+    // // Create
+    // public Post() {
+    //     this.NotImplemented("Post");
+    // }
 
-    // Read
-    public Get(id: TID = null) {
-        this.NotImplemented("Get");
-    }
+    // // Read
+    // public Get(id: TID = null) {
+    //     this.NotImplemented("Get");
+    // }
 
-    // Update
-    public Put() {
-        this.NotImplemented("Put");
-    }
+    // // Update
+    // public Put() {
+    //     this.NotImplemented("Put");
+    // }
 
-    // Delete
-    public Delete(id: TID) {
-        this.NotImplemented("Delete");
-    }
+    // // Delete
+    // public Delete(id: TID) {
+    //     this.NotImplemented("Delete");
+    // }
 }
 

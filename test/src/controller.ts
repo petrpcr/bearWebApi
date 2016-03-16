@@ -1,7 +1,7 @@
-/// <reference path='../typings/main.d.ts' />
+/// <reference path='../../typings/main.d.ts' />
 
-import * as ctrl from "../src/Http/controller";
-import * as obj from "../src/Tools/activator";
+import * as ctrl from "../../src/Http/controller";
+import * as obj from "../../src/Tools/activator";
 import * as model from "./model";
 import * as http from "http";
  
