@@ -9,7 +9,7 @@ var ApiController = (function () {
     }
     ApiController.prototype.Resolve = function () {
         var _this = this;
-        if (this._request.method == "PUT" || this._request.method == "POST") {
+        if (this.ReadBody) {
             var body = new Array();
             this._request.on("data", function (tmpData) { return body.push(tmpData); }).on("end", function () {
                 _this._bodyRequest = Buffer.concat(body).toString();
@@ -20,6 +20,13 @@ var ApiController = (function () {
             this.CallMethod();
         }
     };
+    Object.defineProperty(ApiController.prototype, "ReadBody", {
+        get: function () {
+            return this._request.method.search(/(PUT|POST)/i) > 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ApiController.prototype.CallMethod = function (pName) {
         if (pName === void 0) { pName = this._request.method; }
         pName = this.FindMethod(pName);
@@ -27,7 +34,7 @@ var ApiController = (function () {
             this[pName]();
         }
         else {
-            this.Response.writeHead(404);
+            this.NotImplemented("Funkce " + pName + " neexistuje v kontrolleru " + this.constructor.name);
         }
     };
     ApiController.prototype.FindMethod = function (pName) {
@@ -36,7 +43,7 @@ var ApiController = (function () {
                 return method;
             }
         }
-        return "";
+        return null;
     };
     Object.defineProperty(ApiController.prototype, "Response", {
         get: function () {

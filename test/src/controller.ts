@@ -11,7 +11,7 @@ export class TestCtrl extends ctrl.ApiController<model.Osoba,string>{
  }
  public Get(){
      this.Response.statusCode = 200;
-     var instance:model.Osoba = obj.activator(model.Osoba);
+     var instance:model.Osoba = new model.Osoba();
      instance.Jmeno = "Petr"
      instance.Prijmeni = "Pokorný"
      

@@ -11,12 +11,12 @@ import * as http from "http";
 
 
 export class Server {
-    private _httpServer:http.Server;
+    private _httpServer: http.Server;
     constructor(
-        private _router:route.Routes,
+        private _router: route.Routes,
         private _port: number = 80
-        ) {
+    ) {
 
-      this._httpServer = http.createServer((reg,res)=> this._router.Resolve(reg,res)).listen(this._port)      
+        this._httpServer = http.createServer((reg, res) => this._router.Resolve(reg, res)).listen(this._port)
     }
 }

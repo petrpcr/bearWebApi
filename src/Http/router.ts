@@ -9,7 +9,7 @@ import * as ctrl from "./controller";
 export class Route {
     private _url: url.Url;
 
-    constructor(private _Path: string, private _GetController: { new (req: http.IncomingMessage, res: http.ServerResponse): ctrl.ApiController<any, any> }) {
+    constructor(private _Path: string, private _GetController:  typeof ctrl.ApiController) {
         this._url = url.parse(_Path, true, true);
     }
 
@@ -17,7 +17,7 @@ export class Route {
         return this._url;
     }
 
-    get GetController(): { new (req: http.IncomingMessage, res: http.ServerResponse): ctrl.ApiController<any, any> } {
+    get GetController():  typeof ctrl.ApiController  {
         return this._GetController;
     }
 

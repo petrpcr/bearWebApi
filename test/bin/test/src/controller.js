@@ -4,7 +4,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var ctrl = require("../../src/Http/controller");
-var obj = require("../../src/Tools/activator");
 var model = require("./model");
 var TestCtrl = (function (_super) {
     __extends(TestCtrl, _super);
@@ -13,7 +12,7 @@ var TestCtrl = (function (_super) {
     }
     TestCtrl.prototype.Get = function () {
         this.Response.statusCode = 200;
-        var instance = obj.activator(model.Osoba);
+        var instance = new model.Osoba();
         instance.Jmeno = "Petr";
         instance.Prijmeni = "Pokorný";
         this.Response.end(JSON.stringify(instance));
