@@ -15,6 +15,13 @@ var TestCtrl = (function (_super) {
         var instance = new model.Osoba();
         instance.Jmeno = "Petr";
         instance.Prijmeni = "Pokorný";
+        this.Response.setHeader("content-type", "application/json");
+        this.Response.end(JSON.stringify(instance));
+    };
+    TestCtrl.prototype.Post = function () {
+        var instance = JSON.parse(this.BodyRequest);
+        instance.Evidovano = new Date();
+        this.Response.setHeader("content-type", "application/json");
         this.Response.end(JSON.stringify(instance));
     };
     return TestCtrl;

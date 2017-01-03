@@ -9,21 +9,21 @@ import * as ctrl from "./controller";
 export class Route {
     private _url: url.Url;
 
-    constructor(private _Path: string, private _GetController:  typeof ctrl.ApiController) {
-        this._url = url.parse(_Path, true, true);
+    constructor(private _Path: string, private _GetController:  typeof ctrl.ApiController ) {
+        //this._Path[0] != "/" ? "/"+this._Path : this._Path 
+        this._url = url.parse(this._Path[0] != "/" ? "/"+this._Path : this._Path, true, true);
     }
 
     get URL(): url.Url {
         return this._url;
     }
-
-    get GetController():  typeof ctrl.ApiController  {
-        return this._GetController;
+    
+    get Controller():typeof ctrl.ApiController {
+    return this._GetController
     }
-
 }
 
-export class Routes {
+export class  Routing {
     private _Items: Array<Route>;
 
     constructor() {
@@ -34,14 +34,16 @@ export class Routes {
         this._Items.push(pRoute);
     }
 
+
     Resolve(Request: http.IncomingMessage, Response: http.ServerResponse): boolean {
 
         var Controllers = this._Items.filter((itemRoute: Route) => {
             var _url: url.Url = url.parse(Request.url);
-            return _url.pathname == itemRoute.URL.pathname
+            
+            return _url.pathname.toUpperCase() == itemRoute.URL.pathname.toUpperCase()
         })
         if (Controllers.length >= 1) {
-            var Controller = new Controllers[0].GetController(Request, Response);
+            var Controller = new Controllers[0].Controller(Request, Response);
 
             return true;
         }

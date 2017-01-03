@@ -3,7 +3,6 @@ var ApiController = (function () {
     function ApiController(_request, _response) {
         this._request = _request;
         this._response = _response;
-        this._response.setHeader("content-Type", "application/json");
         this._url = url.parse(this._request.url, true, true);
         this.Resolve();
     }
@@ -20,18 +19,26 @@ var ApiController = (function () {
             this.CallMethod();
         }
     };
+    Object.defineProperty(ApiController.prototype, "BodyRequest", {
+        get: function () {
+            return this._bodyRequest;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ApiController.prototype, "ReadBody", {
         get: function () {
-            return this._request.method.search(/(PUT|POST)/i) > 0;
+            var x = this._request.method.search(/PUT|POST/i) > 0;
+            return this._request.method == "PUT" || this._request.method == "POST";
         },
         enumerable: true,
         configurable: true
     });
     ApiController.prototype.CallMethod = function (pName) {
         if (pName === void 0) { pName = this._request.method; }
-        pName = this.FindMethod(pName);
-        if (pName) {
-            this[pName]();
+        var pNamef = this.FindMethod(pName);
+        if (pNamef) {
+            this[pNamef]();
         }
         else {
             this.NotImplemented("Funkce " + pName + " neexistuje v kontrolleru " + this.constructor.name);

@@ -2,6 +2,7 @@
  Library bear
  Petr Pokorny
 */
+
 /// <reference path="router.ts" />
 
 // Třída server
@@ -13,10 +14,15 @@ import * as http from "http";
 export class Server {
     private _httpServer: http.Server;
     constructor(
-        private _router: route.Routes,
-        private _port: number = 80
+        private _router: route.Routing,
+        private _port: number = 8080
     ) {
 
-        this._httpServer = http.createServer((reg, res) => this._router.Resolve(reg, res)).listen(this._port)
+        this._httpServer = http.createServer(
+            (reg, res) => {
+                this._router.Resolve(reg, res)
+            }
+            )
+        this._httpServer.listen(this._port)
     }
 }

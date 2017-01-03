@@ -14,7 +14,13 @@ export class TestCtrl extends ctrl.ApiController<model.Osoba,string>{
      var instance:model.Osoba = new model.Osoba();
      instance.Jmeno = "Petr"
      instance.Prijmeni = "Pokorný"
-     
+     this.Response.setHeader("content-type","application/json");
+     this.Response.end(JSON.stringify(instance));
+ }
+ public Post(){
+     var instance:model.Osoba = <model.Osoba>JSON.parse(this.BodyRequest)
+     instance.Evidovano = new Date()
+     this.Response.setHeader("content-type","application/json");
      this.Response.end(JSON.stringify(instance));
  }
     

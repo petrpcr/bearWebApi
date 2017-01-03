@@ -3,7 +3,7 @@ var Route = (function () {
     function Route(_Path, _GetController) {
         this._Path = _Path;
         this._GetController = _GetController;
-        this._url = url.parse(_Path, true, true);
+        this._url = url.parse(this._Path[0] != "/" ? "/" + this._Path : this._Path, true, true);
     }
     Object.defineProperty(Route.prototype, "URL", {
         get: function () {
@@ -12,7 +12,7 @@ var Route = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Route.prototype, "GetController", {
+    Object.defineProperty(Route.prototype, "Controller", {
         get: function () {
             return this._GetController;
         },
@@ -22,27 +22,27 @@ var Route = (function () {
     return Route;
 })();
 exports.Route = Route;
-var Routes = (function () {
-    function Routes() {
+var Routing = (function () {
+    function Routing() {
         this._Items = new Array();
     }
-    Routes.prototype.Add = function (pRoute) {
+    Routing.prototype.Add = function (pRoute) {
         this._Items.push(pRoute);
     };
-    Routes.prototype.Resolve = function (Request, Response) {
+    Routing.prototype.Resolve = function (Request, Response) {
         var Controllers = this._Items.filter(function (itemRoute) {
             var _url = url.parse(Request.url);
-            return _url.pathname == itemRoute.URL.pathname;
+            return _url.pathname.toUpperCase() == itemRoute.URL.pathname.toUpperCase();
         });
         if (Controllers.length >= 1) {
-            var Controller = new Controllers[0].GetController(Request, Response);
+            var Controller = new Controllers[0].Controller(Request, Response);
             return true;
         }
         else {
             return false;
         }
     };
-    return Routes;
+    return Routing;
 })();
-exports.Routes = Routes;
+exports.Routing = Routing;
 //# sourceMappingURL=router.js.map
