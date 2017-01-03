@@ -38,11 +38,10 @@ export class ApiController<T, TID> {
     }
 
     public get ReadBody(): boolean {
-       var x = this._request.method.search(/PUT|POST/i) > 0
-        return this._request.method == "PUT" || this._request.method == "POST"
+     return /PUT|POST/i.test(this._request.method)
     }
     public CallMethod(pName: string = this._request.method) {
-        // pName = pName.replace(/^a-z/,(str:string)=> str.toLowerCase())
+        
         var pNamef = this.FindMethod(pName);
         if (pNamef) {
             (<any>this)[pNamef]();
@@ -53,9 +52,11 @@ export class ApiController<T, TID> {
     }
 
     public FindMethod(pName: string): string {
+        var RegName = new RegExp(pName,"i");
+
         for (var method in this) {
-            if (typeof (<any>this)[method] === "function" && method.toUpperCase() == pName.toUpperCase()) {
-                return method;
+            if (typeof (<any>this)[method] === "function" && RegName.test(method) ) {
+                return method
             }
         }
         return null;

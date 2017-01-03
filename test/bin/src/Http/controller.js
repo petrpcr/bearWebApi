@@ -28,8 +28,7 @@ var ApiController = (function () {
     });
     Object.defineProperty(ApiController.prototype, "ReadBody", {
         get: function () {
-            var x = this._request.method.search(/PUT|POST/i) > 0;
-            return this._request.method == "PUT" || this._request.method == "POST";
+            return /PUT|POST/i.test(this._request.method);
         },
         enumerable: true,
         configurable: true
@@ -45,8 +44,9 @@ var ApiController = (function () {
         }
     };
     ApiController.prototype.FindMethod = function (pName) {
+        var RegName = new RegExp(pName, "i");
         for (var method in this) {
-            if (typeof this[method] === "function" && method.toUpperCase() == pName.toUpperCase()) {
+            if (typeof this[method] === "function" && RegName.test(method)) {
                 return method;
             }
         }
